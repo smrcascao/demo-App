@@ -1,5 +1,6 @@
 
 
+
 const express = require('express');
 var http = require('http'),
     fs = require('fs');
@@ -45,9 +46,39 @@ fs.readFile('index.html', function (err, html) {
   res.send(os.platform() );
   	});
 
-	app.get('/cpu', (req, res) => {
+app.get('/cpu', (req, res) => {
   res.send(os.cpus() );
   	});
+
+
+
+
+function fib(n) {
+	if(n > 1){
+		return fib(n-1) + fib(n-2)
+	} else {
+		return n;
+		}
+}
+
+app.get('/fibonacci/:n', (req, res, next) => {
+
+if (!isNaN((req.params.n))) {
+  const timeBefore = Date.now();
+  var result = fib(req.params.n)
+  time= (Date.now() - timeBefore)
+  console.log(time)
+    console.log({ fibonacci: req.params.n.toString(),result: result.toString(),ExecutionTime: time.toString()+ 'ms' });
+    res.status(200).send({ fibonacci: req.params.n.toString(),result: result.toString(),ExecutionTime: time.toString()+' ms' });
+}
+else {
+  console.log({ Error: req.params.n.toString()+' - is not number' });
+  res.status(400).send({ Error: req.params.n.toString()+' - is not number' });
+
+}
+
+
+});
 
 
 
