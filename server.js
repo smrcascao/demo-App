@@ -19,7 +19,7 @@ fs.readFile('index.html', function (err, html) {
 
 
 // Constants
- const PORT = 81;
+ const PORT = 8181;
  const HOST = '0.0.0.0';
 
  var os = require( 'os' );
